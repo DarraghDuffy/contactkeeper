@@ -1,0 +1,48 @@
+import React, { useContext, Fragment } from 'react';
+import ContactContext from '../../context/contact/contextContext';
+import ContactItem from './ContactItem';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+export default function Contacts() {
+  const contactContext = useContext(ContactContext);
+  const { contacts, filtered, filterSearch } = contactContext;
+  return (
+    <Fragment>
+      {contacts.length > 0 &&
+        !filtered &&
+        filterSearch.length === 0 &&
+        contacts.map((contact) => {
+          return <ContactItem key={contact.id} contact={contact}></ContactItem>;
+        })}
+      {filtered &&
+        filtered.map((contact) => {
+          return <ContactItem key={contact.id} contact={contact}></ContactItem>;
+        })}
+      {filtered && filtered.length === 0 && filterSearch.length > 0 && (
+        <p className='text-primary'>no contacts found</p>
+      )}
+      {contacts.length === 0 && (
+        <h3 className='text-danger'>ah, you have no contacts...</h3>
+      )}
+    </Fragment>
+  );
+}
+
+{
+  /* <Fragment>
+      <TransitionGroup>
+        {filtered !== null
+          ? filtered.map((contact) => (
+              <CSSTransition key={contact.id} timeout={500} classNames='item'>
+                <ContactItem contact={contact} />
+              </CSSTransition>
+            ))
+          : contacts.map((contact) => (
+              <CSSTransition key={contact.id} timeout={500} classNames='item'>
+                <ContactItem contact={contact} />
+              </CSSTransition>
+            ))}
+      </TransitionGroup>
+    </Fragment>
+  ); */
+}
