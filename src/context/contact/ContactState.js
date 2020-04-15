@@ -1,11 +1,10 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer } from 'react';
 import { v4 } from 'uuid';
 import axios from 'axios';
-import ContactContext from './contextContext';
+import ContactContext from './contactContext';
 import ContactReducer from './contactReducer';
 
 import {
-  GET_CONTACTS,
   ADD_CONTACT,
   DELETE_CONTACT,
   SET_CURRENT,
@@ -13,10 +12,6 @@ import {
   UPDATE_CONTACT,
   FILTER_CONTACTS,
   CLEAR_FILTER,
-  CLEAR_CONTACTS,
-  CONTACT_ERROR,
-  SET_ALERT,
-  REMOVE_ALERT,
 } from '../types';
 
 const ContactState = (props) => {

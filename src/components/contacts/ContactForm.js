@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import ContactItem from './ContactItem';
-import ContactContext from '../../context/contact/contextContext';
+import ContactContext from '../../context/contact/contactContext';
 
 export default function ContactForm() {
   const contactContext = useContext(ContactContext);
+
   const { current, addContact, clearCurrent, updateContact } = contactContext;
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function ContactForm() {
     } else {
       setThisContact({ name: '', email: '', phone: '', type: 'personal' });
     }
-  }, [contactContext]);
+  }, [contactContext, current]);
 
   const [contact, setThisContact] = useState({
     name: '',

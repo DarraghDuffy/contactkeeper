@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/contextAuth';
 
 export default function Register() {
-  const { user, setUser } = useState({
+  const alertContext = useContext(AlertContext);
+  const { alerts, setAlert } = alertContext;
+  const authContext = useContext(AuthContext);
+  const { register } = authContext;
+
+  const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
@@ -11,18 +18,32 @@ export default function Register() {
   const { name, email, password, password2 } = user;
 
   const onChange = (e) => {
-    setUser = { ...state, [e.target.name]: e.target.value };
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log('Register User');
+    if (
+      name.length === 0 ||
+      email.length === 0 ||
+      password.length === 0 ||
+      password2.length === 0
+    ) {
+      setAlert('all fields are required', 'danger');
+      return;
+    }
+    if (password !== password2) {
+      setAlert('passwords must match', 'danger');
+      return;
+    }
+    register({ name, email, password });
   };
 
   return (
-    <div className='form-container'>
+    <div className='form-container' onSubmit={onSubmit}>
       <h1>
-        Account <span className='text-primary'> Register</span>
+        <span className='text-primary'> Account Register</span>
       </h1>
       <form>
         <div className='form-group'>
@@ -35,7 +56,7 @@ export default function Register() {
         </div>
 
         <div className='form-group'>
-          <label htmlFor='password'>PAssword</label>
+          <label htmlFor='password'>Password</label>
           <input
             type='password'
             name='password'

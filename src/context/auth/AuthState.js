@@ -1,5 +1,6 @@
 import React, { useReducer, createContext } from 'react';
 import axios from 'axios';
+import { baseURL, users } from '../../config/config';
 import AuthContext from './contextAuth';
 import AuthReducer from './authReducer';
 
@@ -27,6 +28,21 @@ const AuthState = (props) => {
   //load user
 
   //register user
+  const register = async (userData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.post(baseURL + users, userData, config);
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+    } catch (error) {
+      console.log(error.message);
+      dispatch({ type: REGISTER_FAIL, payload: error.res.data.msg });
+    }
+  };
 
   //login user
 
@@ -42,6 +58,7 @@ const AuthState = (props) => {
         user: state.user,
         loading: state.loading,
         error: state.error,
+        register,
       }}
     >
       {props.children}

@@ -1,79 +1,35 @@
 import {
-  GET_CONTACTS,
-  ADD_CONTACT,
-  DELETE_CONTACT,
-  SET_CURRENT,
-  CLEAR_CURRENT,
-  UPDATE_CONTACT,
-  FILTER_CONTACTS,
-  CLEAR_CONTACTS,
-  CONTACT_ERROR,
-  CLEAR_FILTER,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  CLEAR_ERRORS,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
-    case GET_CONTACTS:
+    case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
-        users: action.payload,
+        token: action.payload.token,
+        isAuthenticated: true,
         loading: false,
       };
-    case ADD_CONTACT:
+    case REGISTER_FAIL:
+      localStorage.removeItem('token');
       return {
         ...state,
-        contacts: [...state.contacts, action.payload],
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+        error: action.payload,
       };
-    case DELETE_CONTACT:
-      return {
-        ...state,
-        contacts: state.contacts.filter((contact) =>
-          contact.id !== action.payload.id ? contact : null
-        ),
-      };
-    case SET_CURRENT: {
-      return {
-        ...state,
-        current: action.payload,
-      };
-    }
-    case CLEAR_CURRENT: {
-      return {
-        ...state,
-        current: null,
-      };
-    }
-    case UPDATE_CONTACT: {
-      return {
-        ...state,
-        contacts: state.contacts.map((contact) =>
-          contact.id === action.payload.id ? action.payload : contact
-        ),
-      };
-    }
-    case FILTER_CONTACTS: {
-      return {
-        ...state,
-        filterSearch: action.payload,
-        filtered: state.contacts.filter((contact) => {
-          const regex = new RegExp(`${action.payload}`, 'gi');
-          return contact.name.match(regex) || contact.email.match(regex);
-        }),
-      };
-    }
 
-    case CONTACT_ERROR: {
-      return {
-        ...state,
-      };
-    }
-
-    case CLEAR_FILTER:
-      return {
-        ...state,
-        filtered: null,
-        filterSearch: '',
-      };
     default:
       return state;
   }

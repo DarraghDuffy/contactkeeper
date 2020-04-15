@@ -1,16 +1,11 @@
 import React, { useContext } from 'react';
-import ContactContext from '../../context/contact/contextContext';
+import ContactContext from '../../context/contact/contactContext';
 
 export default function ContactItem({ contact }) {
   const { name, phone, email, id, type } = contact;
 
   const contactContext = useContext(ContactContext);
-  const {
-    currentContact,
-    deleteContact,
-    setCurrent,
-    clearCurrent,
-  } = contactContext;
+  const { deleteContact, setCurrent, clearCurrent } = contactContext;
 
   const whichBagde = () => {
     return type === 'personal' ? 'badge-primary' : 'badge-success';

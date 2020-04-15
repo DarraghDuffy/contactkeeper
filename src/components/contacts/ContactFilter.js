@@ -1,5 +1,5 @@
-import React, { Fragment, useContext, useRef, useEffect } from 'react';
-import ContactContext from '../../context/contact/contextContext';
+import React, { useContext, useRef, useEffect } from 'react';
+import ContactContext from '../../context/contact/contactContext';
 
 export default function ContactFilter() {
   const contactContext = useContext(ContactContext);
@@ -9,7 +9,7 @@ export default function ContactFilter() {
     if (filtered === null) {
       text.current.value = '';
     }
-  }, []);
+  }, [filtered]);
   const onChange = (e) => {
     if (text.current.value !== '') {
       filterContact(e.target.value);
