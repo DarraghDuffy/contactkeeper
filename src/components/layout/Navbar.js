@@ -2,11 +2,15 @@ import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/contextAuth';
+import ContactContext from '../../context/contact/contactContext';
 
 export default function Navbar({ icon, title }) {
   const authContext = useContext(AuthContext);
   const { user, logout, isAuthenticated } = authContext;
+  const contactContext = useContext(ContactContext);
+  const { clearContacts } = contactContext;
   const onLogout = () => {
+    clearContacts(); // just App state clear and not the backend!!
     logout();
   };
 
@@ -27,13 +31,16 @@ export default function Navbar({ icon, title }) {
   const guestLinks = (
     <Fragment>
       <li>
-        <Link to='/about'> About </Link>
+        <i className='fas fa-info-circle'></i>
+        <Link to='/about'>About | </Link>
       </li>
       <li>
-        <Link to='/register'> Register </Link>
+        <i className='fas fa-id-card'></i>
+        <Link to='/register'>Register | </Link>
       </li>
       <li>
-        <Link to='/login'> Login </Link>
+        <i className='fas fa-sign-in-alt'></i>
+        <Link to='/login'>Login</Link>
       </li>
     </Fragment>
   );
