@@ -5,7 +5,7 @@ import AuthContext from '../context/auth/contextAuth';
 const PrivateRoute = ({ component: Component }) => {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, loading } = authContext;
-  debugger;
+
   return (
     <Route
       render={(props) =>
