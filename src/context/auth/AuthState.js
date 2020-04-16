@@ -39,8 +39,7 @@ const AuthState = (props) => {
       const res = await axios.post(baseURL + users, userData, config);
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     } catch (error) {
-      console.log(error.message);
-      dispatch({ type: REGISTER_FAIL, payload: error.res.data.msg });
+      dispatch({ type: REGISTER_FAIL, payload: error.response.data.errors });
     }
   };
 
@@ -65,5 +64,4 @@ const AuthState = (props) => {
     </AuthContext.Provider>
   );
 };
-
 export default AuthState;
