@@ -19,6 +19,15 @@ export default function Contacts() {
     //eslint-disable-next-line
   }, []);
 
+  if (loading) {
+    return (
+      <Fragment>
+        {' '}
+        <Spinner></Spinner>
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
       {contacts.length > 0 &&

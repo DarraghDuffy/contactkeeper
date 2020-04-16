@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
 export default function ContactItem({ contact }) {
-  const { name, phone, email, id, type } = contact;
+  const { name, phone, email, _id, type } = contact;
 
   const contactContext = useContext(ContactContext);
   const { deleteContact, setCurrent, clearCurrent } = contactContext;
@@ -14,7 +14,7 @@ export default function ContactItem({ contact }) {
     return type.charAt(0).toLocaleUpperCase() + type.substring(1);
   };
   const onDelete = () => {
-    deleteContact(id);
+    deleteContact(_id);
     clearCurrent();
   };
 
