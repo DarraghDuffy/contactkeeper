@@ -1,13 +1,11 @@
-let baseURL = '';
+// let baseURL = '';
 
-if (process.env.NODE_ENV === 'production') {
-  baseURL = 'https://darraghduffy-contactkeeper.herokuapp.com';
-} else {
-  baseURL = 'http://localhost:5000';
-}
+// if (process.env.NODE_ENV === 'production') {
+//   baseURL = 'https://darraghduffy-contactkeeper.herokuapp.com';
+// }
 
-const users = baseURL + '/api/users';
-const contacts = baseURL + '/api/contacts';
-const auth = baseURL + '/api/auth';
+const users = '/api/users';
+const contacts = '/api/contacts';
+const auth = '/api/auth';
 
 export { users, contacts, auth };
