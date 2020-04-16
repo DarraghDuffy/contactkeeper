@@ -25,6 +25,7 @@ const ContactState = (props) => {
     filtered: null,
     filterSearch: '',
     error: null,
+    loading: true,
   };
 
   const [state, dispatch] = useReducer(ContactReducer, initialState);
@@ -103,6 +104,7 @@ const ContactState = (props) => {
         filtered: state.filtered,
         filterSearch: state.filterSearch,
         error: state.error,
+        loading: state.loading,
         addContact,
         deleteContact,
         getContacts,

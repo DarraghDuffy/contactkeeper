@@ -22,7 +22,6 @@ export default function Contacts() {
   if (loading) {
     return (
       <Fragment>
-        {' '}
         <Spinner></Spinner>
       </Fragment>
     );
