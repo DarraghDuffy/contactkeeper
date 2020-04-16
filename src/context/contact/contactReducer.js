@@ -29,7 +29,7 @@ export default (state, action) => {
         ...state,
         loading: false,
         contacts: state.contacts.filter((contact) =>
-          contact.id !== action.payload.id ? contact : null
+          contact._id !== action.payload.id ? contact : null
         ),
       };
     case SET_CURRENT: {
