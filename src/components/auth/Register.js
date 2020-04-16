@@ -1,12 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/contextAuth';
 
-export default function Register() {
+export default function Register(props) {
   const alertContext = useContext(AlertContext);
   const { alerts, setAlert } = alertContext;
   const authContext = useContext(AuthContext);
-  const { register } = authContext;
+  const { register, error, isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    } else {
+      if (error) {
+        error.map((err) => setAlert(err.msg, 'danger'));
+      }
+    }
+    //eslint-disable-next-line
+  }, [authContext, error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     name: '',
@@ -23,7 +34,6 @@ export default function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Register User');
     if (
       name.length === 0 ||
       email.length === 0 ||

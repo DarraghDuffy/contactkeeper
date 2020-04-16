@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import AuthContext from '../../context/auth/contextAuth';
+import AlertContext from '../../context/alert/alertContext';
 
-export default function Login() {
+export default function Login(props) {
+  const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
+
+  const { alerts, setAlert } = alertContext;
+  const { login, error, isAuthenticated } = authContext;
+
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -8,13 +16,23 @@ export default function Login() {
 
   const { email, password } = user;
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    } else {
+      if (error) {
+        error.map((err) => setAlert(err.msg, 'danger'));
+      }
+    }
+  }, [error, isAuthenticated, props.history]);
+
   const onChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Login user');
+    login({ email, password });
   };
 
   return (

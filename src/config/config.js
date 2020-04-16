@@ -4,8 +4,8 @@
 // };
 
 const baseURL = 'http://localhost:5000';
-const users = '/api/users';
-const contacts = '/api/contcts/';
-const auth = '/api/auth';
+const users = baseURL + '/api/users';
+const contacts = baseURL + '/api/contcts/';
+const auth = baseURL + '/api/auth';
 
-export { baseURL, users, contacts, auth };
+export { users, contacts, auth };
