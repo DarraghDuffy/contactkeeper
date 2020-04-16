@@ -13,8 +13,12 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import AlertState from './context/alert/AlertState';
 import Alerts from './components/layout/Alerts';
+import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './routing/PrivateRoute';
 
 function App() {
+  setAuthToken();
+
   return (
     <AuthState>
       <ContactState>
@@ -26,7 +30,7 @@ function App() {
               <div className='container'>
                 <Alerts></Alerts>
                 <Switch>
-                  <Route exact path='/' component={Home} />
+                  <PrivateRoute exact path='/' component={Home} />
                   <Route exact path='/About' component={About} />
                   <Route exact path='/Register' component={Register} />
                   <Route exact path='/Login' component={Login} />
