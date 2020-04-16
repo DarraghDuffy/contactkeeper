@@ -8,6 +8,7 @@ import {
   FILTER_CONTACTS,
   CONTACT_ERROR,
   CLEAR_FILTER,
+  CLEAR_CONTACTS,
 } from '../types';
 
 export default (state, action) => {
@@ -22,7 +23,7 @@ export default (state, action) => {
       return {
         ...state,
         loading: false,
-        contacts: [...state.contacts, action.payload],
+        contacts: [action.payload, ...state.contacts],
       };
     case DELETE_CONTACT:
       return {
@@ -68,6 +69,13 @@ export default (state, action) => {
       return {
         ...state,
         error: action.payload,
+      };
+    }
+
+    case CLEAR_CONTACTS: {
+      return {
+        ...state,
+        contacts: [],
       };
     }
 
