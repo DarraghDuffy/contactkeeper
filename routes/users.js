@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+const { JWT_SECRET, JWT_EXPIRES } = require('../config/configuration');
 
 const { check, validationResult } = require('express-validator');
 
@@ -48,9 +48,9 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        JWT_SECRET,
         {
-          expiresIn: config.get('jwtExpires'),
+          expiresIn: JWT_EXPIRES,
         },
         (err, token) => {
           if (err) throw err;

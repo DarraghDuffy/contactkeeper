@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
+const { JWT_SECRET, JWT_EXPIRES } = require('../config/configuration');
 
 module.exports = function (req, res, next) {
   // Get token from the header
@@ -9,7 +9,7 @@ module.exports = function (req, res, next) {
     return res.status(401).json({ msg: 'No token, authorisation denied' });
   }
   try {
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded.user;
     console.log(`User Logged-In:${req.user.id}`);
     next();
